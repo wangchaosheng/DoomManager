@@ -1,0 +1,28 @@
+{
+    "isSession": false,
+    "HttpProxy": "",
+    "PreTask": null,
+    "MainTask": [
+        {
+            "TaskWeight": 1,
+            "TaskName": "\u9996\u9875\u83b7\u53d6\u5546\u54c1",
+            "PreWork": null,
+            "TestWork": {
+                "Method": "Get",
+                "UrlPath": "https://ntcapi-pre.shiguangkey.com/api/marketing/goods/pc/quality?num=10",
+                "Headers": null,
+                "Params": null,
+                "DictData": null,
+                "RawData": "",
+                "JsonData": "",
+                "AssertChain": [
+                    {
+                        "AssertType": 0,
+                        "RuleValue": 200
+                    }
+                ],
+                "SaveParamChain": null
+            }
+        }
+    ]
+}

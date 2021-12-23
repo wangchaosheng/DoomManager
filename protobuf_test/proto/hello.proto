@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message HelloRequest{
+  string name = 1 ; //name表示名称，name的编号是1
+}
+
+
+
+
+
+
+
+
+
+//python -m grpc_tools.protoc --python_out=. --grpc_python_out=. -I.(input的目录) hello.proto
