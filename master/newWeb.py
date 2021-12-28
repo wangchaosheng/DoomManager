@@ -149,6 +149,7 @@ class WebUI:
                 print(e)
                 self.recvMesg[rpcServAddr] = "连接服务器异常：%s" % (e)
                 return
+            print(self.workedServser)
 
             if response and response.status:
                 tryCount = 0
@@ -163,6 +164,7 @@ class WebUI:
                         newId = dfIdSet.pop()
                         break
                 self.workedServser[rpcServAddr] = newId
+                print(self.workedServser[rpcServAddr])
             try:
                 channel.close()
             except:
@@ -675,6 +677,10 @@ class WebUI:
         @self.auth_required_if_enabled
         @memoize(timeout=DEFAULT_CACHE_TIME, dynamic_timeout=True)
         def request_stats():
+
+            print(self.workedServser)
+            print(self.etcdt.servAddressList)
+
             stats = []
 
             for s in chain(sort_stats(self.environment.runner.stats.entries), [environment.runner.stats.total]):
@@ -723,9 +729,16 @@ class WebUI:
             if is_distributed:
                 workers = []
                 missingClientIds = []
+
+
+
                 for key, worker in environment.runner.clients.items():
+
                     if worker.state == runners.STATE_MISSING:
                         missingClientIds.append(key)
+                        for k,v in self.workedServser.items():
+                            if v == key:
+                                self.recvMesg[k]=""
                         continue
                     workers.append({
                         "id": worker.id,
@@ -736,6 +749,7 @@ class WebUI:
                 # 移除missing的worker
                 for missingClientId in missingClientIds:
                     del environment.runner.clients[missingClientId]
+
                 report["workers"] = workers
                 report["slaves"] = [{
                     "slave": x,
@@ -844,6 +858,10 @@ class WebUI:
                 res = app.make_response(res)
                 res.headers["Content-Disposition"] = "attachment;filename=report_%s.html" % time()
             return res
+
+
+
+
 
     def start(self):
         if self.tls_cert and self.tls_key:
