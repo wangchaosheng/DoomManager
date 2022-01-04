@@ -146,10 +146,10 @@ class WebUI:
                 response = stub.InitBommer(initBommerRequest, timeout=15)
                 self.recvMesg[rpcServAddr] = response.message
             except Exception as e:
-                print(e)
+                # print(e)
                 self.recvMesg[rpcServAddr] = "连接服务器异常：%s" % (e)
                 return
-            print(self.workedServser)
+            # print(self.workedServser)
 
             if response and response.status:
                 tryCount = 0
@@ -164,7 +164,7 @@ class WebUI:
                         newId = dfIdSet.pop()
                         break
                 self.workedServser[rpcServAddr] = newId
-                print(self.workedServser[rpcServAddr])
+                # print(self.workedServser[rpcServAddr])
             try:
                 channel.close()
             except:
@@ -582,23 +582,23 @@ class WebUI:
         @self.auth_required_if_enabled
         def initBoomer():
             jsonfile = eval(str(request.get_json()))
-            print(type(jsonfile), type(request.get_json()))
-            # host = request.url.split('?')[1].split('&')
-            # print(type(jsonfile),type(host),jsonfile,host)
+            # print(type(jsonfile), type(request.get_json()))
+            # # host = request.url.split('?')[1].split('&')
+            # # print(type(jsonfile),type(host),jsonfile,host)
             if not self.etcdt.servAddressList:
                 return jsonify({'success': False, 'message': '没有可用的压力机'})
             selectServAddrList = request.url.split('?')[1].split('&')
-            print(selectServAddrList, type(selectServAddrList))
+            # print(selectServAddrList, type(selectServAddrList))
             if not selectServAddrList:
                 return jsonify({'success': False, 'message': '请选择压力机'})
-            print("----------------")
+            # print("----------------")
             initBommerRequest, errMsg = makeInitBoomerRequest(jsonfile, self.masterHost)
-            print(errMsg)
-            print("++++++++++")
+            # print(errMsg)
+            # print("++++++++++")
             if not initBommerRequest:
                 return jsonify({'success': False, 'message': errMsg})
             for rpcServAddr in set(self.etcdt.servAddressList).intersection(set(selectServAddrList)):
-                print(rpcServAddr)
+                # print(rpcServAddr)
                 initTask(self, rpcServAddr, initBommerRequest)
             return jsonify({'success': True, 'message': '已通知压测机初始化，请检查Workers中各压力机的最新消息'})
 
@@ -611,7 +611,7 @@ class WebUI:
             if not self.etcdt.servAddressList:
                 return jsonify({'success': False, 'message': '没有可用的压力机'})
             for rpcServAddr in set(self.etcdt.servAddressList).intersection(set(selectServAddrList)):  # 全部关闭
-                print(rpcServAddr)  # 打印压测机列表
+                # print(rpcServAddr)  # 打印压测机列表
                 shutTask(self, rpcServAddr)
             return jsonify({'success': True, 'message': '已通知压测机停止，请检查Workers中各压力机的最新情况'})
 
@@ -678,8 +678,8 @@ class WebUI:
         @memoize(timeout=DEFAULT_CACHE_TIME, dynamic_timeout=True)
         def request_stats():
 
-            print(self.workedServser)
-            print(self.etcdt.servAddressList)
+            # print(self.workedServser)
+            # print(self.etcdt.servAddressList)
 
             stats = []
 
