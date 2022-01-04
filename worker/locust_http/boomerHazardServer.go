@@ -18,7 +18,7 @@ import (
 
 	proto "locust_http/proto"
 
-	"github.com/levigross/grequests" // 可以替换fasthttp
+	"github.com/levigross/grequests"
 	"github.com/myzhan/boomer"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
