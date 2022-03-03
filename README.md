@@ -5,15 +5,9 @@
      搭配fastperfomance即可实现，任务隔离，历史执行记录管理，多人压测。
 
 ## 说明
-     拷贝了原版locust的main.py及webUI和前端部分代码进行修改。
-     在boomer之上增加了gRPC服务，能解析master发来的http接口测试任务描述信息并生成boomer的任务
-     boomer及grequests源码部分地方做了小改动--主要避免异常退出。
-     【1】boomer源码的github.com\myzhan\boomer\runner.go(行221)
+     这里
+     中close channel某些情况化因为重复关闭会造成异常关闭, 这里最好加上recover处理：对
      中close channel某些情况化因为重复关闭会造成异常关闭, 这里最好加上recover处理：
-     defer func(){
-      	r:=recover();if r!=nil{
-	   fmt.Println("处理Boomer关闭遇到异常:",r)
-      }}()
 
          
 ## 启动参考：这里的ip、port都是例子，请根据实际情况设置
