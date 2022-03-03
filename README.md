@@ -5,9 +5,7 @@
      搭配fastperfomance即可实现，任务隔离，历史执行记录管理，多人压测。
 
 ## 说明
-     这里
-     中close channel某些情况化因为重复关闭会造成异常关闭, 这里最好加上recover处理：对
-     中close channel某些情况化因为重复关闭会造成异常关闭, 这里最好加上recover处理：
+     对locust1.3进行了二次开发，所有的接口方法全部兼容多人压测模式，locust源码对runner类进行大量修改以支持多人模式，boomer这边新增了一个csv导入功能
 
          
 ## 启动参考：这里的ip、port都是例子，请根据实际情况设置
